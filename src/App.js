@@ -11,12 +11,22 @@ function App() {
 
   const [newDeveloper, setNewDeveloper] = useState({ name: '', age: '', skills: '' });
 
-  const handleInputChange = (e) => {
+  const InputChange = (e) => {
     const { name, value } = e.target;
     setNewDeveloper({ ...newDeveloper, [name]: value });
   };
 
-  const handleAddDeveloper = () => {
+  const handleInputFocus = (e) => {
+    e.target.parentNode.classList.add('input-focused');
+  };
+
+  const handleInputBlur = (e) => {
+    if (!e.target.value) {
+      e.target.parentNode.classList.remove('input-focused');
+    }
+  };
+
+  const AddDeveloper = () => {
     const id = developers.length + 1;
     setDevelopers([...developers, { id, ...newDeveloper }]);
     setNewDeveloper({ name: '', age: '', skills: '' });
@@ -31,19 +41,16 @@ function App() {
             <table>
               <tbody>
                 <tr>
-                  <td><label htmlFor="name">Nombre:</label></td>
-                  <td><input type="text" id="name" name="name" value={newDeveloper.name} onChange={handleInputChange} /></td>
+                  <td><input type="text" id="name" name="name" value={newDeveloper.name} onChange={InputChange} placeholder='Nombre'/></td>
                 </tr>
                 <tr>
-                  <td><label htmlFor="age">Edad:</label></td>
-                  <td><input type="text" id="age" name="age" value={newDeveloper.age} onChange={handleInputChange} /></td>
+                  <td><input type="text" id="age" name="age" value={newDeveloper.age} onChange={InputChange} placeholder='Edad'/></td>
                 </tr>
                 <tr>
-                  <td><label htmlFor="skills">Habilidades:</label></td>
-                  <td><input type="text" id="skills" name="skills" value={newDeveloper.skills} onChange={handleInputChange} /></td>
+                  <td><input type="text" id="skills" name="skills" value={newDeveloper.skills} onChange={InputChange} placeholder='Habilidades'/></td>
                 </tr>
                 <tr>
-                  <td colSpan="2"><button className='Btn-add' onClick={handleAddDeveloper}>Guardar</button></td>
+                  <td colSpan="2"><button className='Btn-add' onClick={AddDeveloper}>Guardar</button></td>
                 </tr>
               </tbody>
             </table>
